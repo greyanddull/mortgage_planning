@@ -1,0 +1,12 @@
+# Ignore everything in configs/
+configs/*
+
+# Except the examples/ subfolder
+!configs/examples/
+
+# Ignore everything inside examples/
+configs/examples/*
+
+# Except the specific example file
+!configs/examples/example1.yaml
+
