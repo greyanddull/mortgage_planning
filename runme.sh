@@ -1,3 +1,3 @@
 !#/bin/bash
 
-python3 examples/rent examples/300K_purchase
+python3 main_model.py examples/rent examples/300K_purchase

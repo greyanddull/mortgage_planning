@@ -4,7 +4,7 @@ This program aims to model income, outgoing, savings, mortgage, and house value 
 
 ## Getting Started
 
-The requirements.txt contains the name and version of packages required to run the program.
+The requirements.txt contains the name and version of packages required to run the program. Or just try and run the `runme.sh` file and install the packages that crash the program.
 
 ### Examples
 
