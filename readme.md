@@ -1,6 +1,8 @@
 # 🏦 Cash-Flow Analysis
 
-This program models income, expenses, savings, mortgage payments, and house equity over time to support personal financial planning.
+This program models income, expenses, savings, mortgage payments, and house equity over time to support personal financial planning. The final plots look like the example below which shows the value in various accounts on the left for a scenario of renting only and one of buying a house after renting for a few months.
+
+![example comparing renting and purchasing a house](example_plots/renting_vs_300Kpurchase.png)
 
 ---
 
