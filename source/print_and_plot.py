@@ -53,6 +53,7 @@ def plot_individual_accounts(ax, accounts, label_prefix="", mortgage=None):
         ax.plot(dates, mortgage_balances, label="Mortgage Debt", linestyle="--")
 
     ax.grid(True)
+    ax.set_ylabel("Value (currency)")
 
     return dates
 
