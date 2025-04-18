@@ -8,5 +8,9 @@ configs/*
 configs/examples/*
 
 # Except the specific example file
-!configs/examples/example1.yaml
+!configs/examples/rent.yaml
+!configs/examples/300K_purchase.yaml
 
+#
+__pycache__/
+*.py[cod]

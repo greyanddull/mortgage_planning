@@ -1,0 +1,84 @@
+start_date: 2025-04-01
+end_date: 2050-10-01
+
+accounts:
+  savings:
+    starting_amount: 50000
+    interest_rate: 0.04
+    tax_rate: 0.0
+  pension:
+    starting_amount: 0
+    interest_rate: 0.09
+    tax_rate: 0.00
+
+expenses:
+  - name: salary_1
+    amount: 5000
+    frequency: monthly
+    day_of_month: 28 
+    end_date: 2027-09-28 # No start date means the model is initialised from this amount
+    source_account: null # Money comes from none of the accounts 
+    destination_account: savings # And goes into savings
+
+  - name: salary_2 # Add another salary for another person or maybe a change of job
+    amount: 5000
+    frequency: monthly
+    day_of_month: 28
+    start_date: 2027-10-01 # No end date means this salary will be paid until the end of the model
+    source_account: null
+    destination_account: savings
+
+  - name: salary_reduction # Used for modelling something like maternity/paternity leave
+    amount: 2000 # Value is positive but the source and destination accounts are switched
+    frequency: monthly
+    start_date: 2026-10-01
+    end_date: 2027-06-28
+    day_of_month: 28
+    source_account: savings
+    destination_account: null
+
+  - name: maternity_leave # Some maternity leave payments from the state
+    amount: 736
+    frequency: monthly
+    start_date: 2026-10-01
+    end_date: 2027-06-28
+    day_of_month: 28
+    source_account: null
+    destination_account: savings
+
+  - name: daily_expenditure_two_adults # Comes out of savings daily
+    amount: 100
+    frequency: daily
+    source_account: savings
+    destination_account: null
+
+  - name: daily_expenditure_child # ChatGPT thinks this is reasonable
+    amount: 15
+    start_date: 2026-10-01
+    end_date: 2046-10-01
+    frequency: daily
+    source_account: savings
+    destination_account: null
+
+  - name: nursery_costs
+    amount: 1400
+    frequency: monthly
+    start_date: 2027-10-01
+    end_date: 2031-09-28
+    source_account: savings
+    destination_account: null
+
+  - name: parachute_payment # One-off payments/windfalls
+    amount: 10000
+    frequency: once
+    day_of_month: 28
+    one_off_date: 2029-10-01
+    source_account: null
+    destination_account: savings
+
+  - name: rent
+    amount: 1250
+    frequency: monthly
+    day_of_month: 28 # No end or start date means rent is always paid (this is, the 'rent' example)
+    source_account: savings
+    destination_account: null
