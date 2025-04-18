@@ -1,42 +1,101 @@
-# Cash-Flow Analysis
+# 🏦 Cash-Flow Analysis
 
-This program aims to model income, outgoing, savings, mortgage, and house value to help in deciding personal financial decisions. 
+This program models income, expenses, savings, mortgage payments, and house equity over time to support personal financial planning.
 
-## Getting Started
+---
 
-The requirements.txt contains the name and version of packages required to run the program. Or just try and run the `runme.sh` file and install the packages that crash the program.
+## 🚀 Getting Started
 
-### Examples
+Install required packages using:
 
-The `runme` file will run two examples which generate plots comparing two scenarios - a scenario in which one rents fulltime and a house purchase scenario. It's highly recommended to run the bash script `runme.sh`.
+```bash
+pip install -r requirements.txt
+```
 
-## Overview
+Or just run the helper script:
+
+```bash
+bash runme.sh
+```
+
+> 🔧 If any packages are missing, install them manually based on the error messages.
+
+---
+
+## ⚡ Quick Run
+
+1. The `runme.sh` script runs two example scenarios:
+   - Renting full-time
+   - Purchasing a home
+
+   This will generate comparative plots. Highly recommended!
+
+2. Alternatively, run the program manually from the `source/` directory:
+
+```bash
+cd source/
+python3 main_model.py examples/rent examples/300K_purchase
+```
+
+You can also run a single scenario if preferred.
+
+---
+
+## 🧠 How It Works
 
 ### Running a Model
 
-Run a model by defining a Scenario (see below) and then running,
+Each scenario is defined by a YAML file stored in the `configs/` directory.
+
+Run two scenarios side-by-side like this:
+
+```bash
+python3 main_model.py <config_sub_folder>/scenario_1 <config_sub_folder>/scenario_2
 ```
-python3 main_model.py config_sub_folder/scenario_1 config_sub_folder/scenario_2
-```
-Note that the program will look for the scenario config files from `/configs`, so no need to include that directory when running and no need to include the `*.yaml` extension.
 
-### Scenarios
+> 🔍 Do **not** include the `configs/` path or the `.yaml` extension in your arguments — the program handles that for you.
 
-Scenarios are defined by the *.yaml config files found in the `configs` folder. Scenarios contain the definitions for various `account`, `expense` and `mortgage` classes of objects.
+---
 
-#### Account
+## 🗂️ Scenario Configuration
 
-The account class contains a value which is incremented on a daily basis by the account's interest rate - this is supposed to emulate a savings account which accrues daily interest. Accounts can be called anything, but the `mortgage` and `house` accounts are special cases because expenses sent to `house_and_mortgage` will be split by the interest payment and the capital and sent to those two accounts individually. 
+Each scenario file defines:
+- Accounts
+- Expenses
+- Mortgage (if applicable)
 
-#### Expense
+These are represented as Python class instances via structured YAML.
 
-The expense class contains objects which represent incomings or outgoings. Expenses have
-- `value` (the amount moving between accounts)
-- `frequency` (can be monthly, once, or daily)
-- `source_account` (the account from which this expense comes from - for salary, the source account is `null`)
-- `destination_account` (the account to which expenses go to - for bills, this is `null` i.e. money disappears and for mortgage payments, the destination account is house_and_mortgage)
-- `day_of_month` in the case of monthly frequency payments
+### 💰 Account
 
-#### Mortgage
+Represents a financial account with daily interest accrual (e.g. savings).
 
-Mortgage is a special type of account which has become its own class. It tracks the debt owed while the interest paid is managed by - specifically - an object called "mortgage" which is actually an `account` object.
+Key points:
+- Named freely (e.g. `current`, `savings`)
+- Two special accounts:
+  - `house`: Tracks home equity
+  - `mortgage`: Tracks interest payments (see below)
+
+When an expense is paid to the special `house_and_mortgage` destination:
+- Interest goes to `mortgage`
+- Principal goes to `house`
+
+### 📉 Expense
+
+Defines money moving between accounts. Could be income, bills, or transfers.
+
+Each expense has:
+- `amount`: How much is moved
+- `frequency`: `daily`, `monthly`, or `once`
+- `source_account`: Where the money comes from (`null` for income)
+- `destination_account`: Where it goes (`null` for outflows)
+- `day_of_month`: Used for monthly recurring payments
+
+### 🏠 Mortgage
+
+A special object tracking the mortgage loan balance.
+
+- Uses its own `Mortgage` class (not a regular account)
+- Tracks principal reduction over time
+- Interest payments are routed to the `mortgage` account
+- Principal payments increase the `house` account (equity)

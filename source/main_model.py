@@ -19,7 +19,7 @@ if __name__ == "__main__":
 
     for config_name in config_names:
         # Full path to the config file
-        config_path = Path("configs") / f"{config_name}.yaml"
+        config_path = Path("../configs") / f"{config_name}.yaml"
 
         # Extract readable label: just the part between 'config.' and '.yaml'
         readable_label = config_name
