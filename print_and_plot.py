@@ -44,10 +44,7 @@ def plot_individual_accounts(ax, accounts, label_prefix="", mortgage=None):
 
     for i, account in enumerate(accounts.values()):
         balances = [account.history[date] for date in dates]
-        if i == 0 and label_prefix:
-            label = f"{label_prefix} - {account.name.capitalize()}"
-        else:
-            label = None
+        label = f"{label_prefix} - {account.name.capitalize()}"
         ax.plot(dates, balances, label=label)
 
     # ✅ Optionally plot mortgage debt as a separate line
@@ -81,7 +78,7 @@ def plot_total_balances(ax, accounts, expenses=None, label_prefix="", label_prin
 
     return dates, cash_balances
 
-def add_linear_regression(ax, dates, values, fit_start_date: date, fit_end_date: date, label="Trend", color="orange"):
+def add_linear_regression(ax, dates, values, fit_start_date: date, fit_end_date: date, label="Trend", color="orange", config_name=None):
     # Filter dates and values within the fit window
     filtered = [(d, v) for d, v in zip(dates, values) if fit_start_date <= d <= fit_end_date]
     if len(filtered) < 2:
@@ -103,10 +100,10 @@ def add_linear_regression(ax, dates, values, fit_start_date: date, fit_end_date:
     y_pred = slope * x_pred + intercept
 
     # Plot on same axis
-    ax.plot(fit_dates, y_pred, linestyle='--', linewidth=2, color=color, label=label)
+    ax.plot(fit_dates, y_pred, linestyle='--', linewidth=2, color=color, label=label+f" {config_name}")
 
     # Show results
-    print(f"📈 Fitted linear trend from {fit_start_date} to {fit_end_date}: slope = {slope:.2f}, intercept = {intercept:.2f}")
+    print(f"📈 Cash accrument for {config_name} from {fit_start_date} to {fit_end_date} = {30*slope:.2f} per 30 days")
 
     return ax
 

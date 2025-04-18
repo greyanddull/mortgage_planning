@@ -51,10 +51,11 @@ if __name__ == "__main__":
         ax=ax2,
         dates=dates,
         values=cash_balances,
-        fit_start_date=date(2026, 1, 1),
-        fit_end_date=date(2026, 10, 1),
-        label="Disposable income",
-        color="purple"
+        fit_start_date=date(2031, 1, 1),
+        fit_end_date=date(2035, 10, 1),
+        label="Cash accrument rate 1",
+        color="purple",
+        config_name = config_name
         )
 
         # Find daily disposable income
@@ -62,10 +63,11 @@ if __name__ == "__main__":
         ax=ax2,
         dates=dates,
         values=cash_balances,
-        fit_start_date=date(2027, 1, 1),
+        fit_start_date=date(2026, 10, 1),
         fit_end_date=date(2027, 10, 1),
-        label="Lose rate after losing ECMWF money",
-        color="purple"
+        label="Cash accrument rate 2",
+        color="green",
+        config_name = config_name
         )
 
     # Final layout + show
