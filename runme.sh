@@ -1,3 +1,4 @@
 #!/bin/bash
 
-python3 source/main_model.py examples/rent examples/300K_purchase
+cd source
+python3 main_model.py examples/rent examples/300K_purchase
