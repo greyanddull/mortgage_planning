@@ -7,6 +7,21 @@ def run_simulation(start_date, end_date, accounts, expenses, mortgage):
     print(f"\n🚀 Running simulation from {start_date} to {end_date}...\n")
 
     while current_date <= end_date:
+
+        # Apply interest & record each day - this will increase the value of the house
+        for account in accounts.values():
+            account.apply_interest(days=1)
+            account.record_day(current_date)
+
+        # Calculate house equity based on mortgage just paid off
+        if mortgage:
+            if current_date == mortgage.start_date:
+                accounts["house_value"].balance = mortgage.balance
+            
+            if current_date >= mortgage.start_date:
+                accounts["house_equity"].balance = accounts["house_value"].balance - mortgage.balance
+
+        # Apply expenses
         for exp in expenses:
             if not exp.is_due(current_date):
                 continue
@@ -21,12 +36,10 @@ def run_simulation(start_date, end_date, accounts, expenses, mortgage):
                         accounts[exp.source_account].adjust_balance(-interest)
                         accounts[exp.source_account].adjust_balance(-principal)
 
-                    # Principal goes toward house equity
-                    accounts["house"].adjust_balance(principal)
-
                     # Interest goes to tracking (optional)
                     if "mortgage" in accounts:
                         accounts["mortgage"].adjust_balance(interest)
+
                 continue  # Skip rest of loop for this expense
 
             # Normal expense handling
@@ -42,12 +55,6 @@ def run_simulation(start_date, end_date, accounts, expenses, mortgage):
                 dest_acc = accounts[exp.destination_account]
                 dest_acc.adjust_balance(amount)
 
-        # Apply interest & record each day
-        for account in accounts.values():
-            account.apply_interest(days=1)
-            account.record_day(current_date)
-
-        
         # ✅ Record mortgage balance for this day
         if mortgage:
             mortgage.record_day(current_date)

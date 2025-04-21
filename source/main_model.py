@@ -34,41 +34,42 @@ if __name__ == "__main__":
         run_simulation(start_date, end_date, accounts, expenses, mortgage)
 
         # Plot individual accounts on left
-        plot_individual_accounts(ax1, accounts, label_prefix=readable_label, mortgage=mortgage)
+        plot_individual_accounts(ax1, accounts, label_prefix=readable_label, mortgage=mortgage, label_print=None)
 
         # Plot total + cash on right (stack them)
         dates, cash_balances = plot_total_balances(
             ax2, accounts, expenses,
             label_prefix=readable_label,
-            label_print=(config_name == config_names[0])  # only once
+            label_print=(config_name == config_names[0]),
+            mortgage=mortgage  # only once
         )
 
         all_cash_lines.append(cash_balances)
         all_dates.append(dates)
 
-        # Find daily disposable income
-        ax2 = add_linear_regression(
-        ax=ax2,
-        dates=dates,
-        values=cash_balances,
-        fit_start_date=date(2031, 1, 1),
-        fit_end_date=date(2035, 10, 1),
-        label="Cash accrument rate 1",
-        color="purple",
-        config_name = config_name
-        )
+        # # Find daily disposable income
+        # ax2 = add_linear_regression(
+        # ax=ax2,
+        # dates=dates,
+        # values=cash_balances,
+        # fit_start_date=date(2031, 1, 1),
+        # fit_end_date=date(2035, 10, 1),
+        # label="Cash accrument rate 1",
+        # color="purple",
+        # config_name = config_name
+        # )
 
-        # Find daily disposable income
-        ax2 = add_linear_regression(
-        ax=ax2,
-        dates=dates,
-        values=cash_balances,
-        fit_start_date=date(2026, 10, 1),
-        fit_end_date=date(2027, 10, 1),
-        label="Cash accrument rate 2",
-        color="green",
-        config_name = config_name
-        )
+        # # Find daily disposable income
+        # ax2 = add_linear_regression(
+        # ax=ax2,
+        # dates=dates,
+        # values=cash_balances,
+        # fit_start_date=date(2026, 10, 1),
+        # fit_end_date=date(2027, 10, 1),
+        # label="Cash accrument rate 2",
+        # color="green",
+        # config_name = config_name
+        # )
 
     # Final layout + show
     ax1.legend()

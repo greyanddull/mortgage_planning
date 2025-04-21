@@ -15,14 +15,18 @@ accounts:
     starting_amount: 0
     interest_rate: 0.09
     tax_rate: 0.00
-  house:
+  house_equity:
     starting_amount: 0
-    interest_rate: 0.05 # Year-on-year value growth rate
+    interest_rate: 0.0 # House value increase is now handled by the house_value account
     tax_rate: 0.00
   mortgage:
     starting_amount: 0 # No need to change these - interest is handled by the Mortgage object
     interest_rate: 0.00
     tax_rate: 0.00
+  house_value:
+    starting_amount: 0
+    interest_rate: 0.05 # Year-on-year value growth rate
+    tax_rate: 0
 
 expenses:
   - name: salary_1
